@@ -1,9 +1,9 @@
-package MeuRobo;
+package EPossivelCara;
 import robocode.*;
 import java.awt.Color;
 
 
-public class MeuRobo extends AdvancedRobot {
+public class EPossivelCara extends AdvancedRobot {
   int gunDirection = 1;
 
   public void run() {
