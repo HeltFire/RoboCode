@@ -7,10 +7,10 @@ public class EPossivelCara extends AdvancedRobot {
   int gunDirection = 1;
 
   public void run() {
-    setBodyColor(Color.black);
-    setRadarColor(Color.green);
-    setGunColor(Color.black);
-    setBulletColor(Color.orange);
+    setBodyColor(Color.pink);
+    setRadarColor(Color.pink);
+    setGunColor(Color.pink);
+    setBulletColor(Color.pink);
 
     while (true) {
       turnGunRight(360);
