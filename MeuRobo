@@ -1,28 +1,55 @@
 package EPossivelCara;
+
 import robocode.*;
-import java.awt.Color;
+import java.awt.*;
 
 
 public class EPossivelCara extends AdvancedRobot {
-  int gunDirection = 1;
+    int moveDirection=1;
 
-  public void run() {
-    setBodyColor(Color.pink);
-    setRadarColor(Color.pink);
-    setGunColor(Color.pink);
-    setBulletColor(Color.pink);
-
-    while (true) {
-      turnGunRight(360);
+    public void run() {
+        setAdjustRadarForRobotTurn(true);
+        setBodyColor(Color.white);
+        setGunColor(Color.white);
+        setRadarColor(Color.white);
+        setScanColor(Color.white);
+        setBulletColor(Color.white);
+        setAdjustGunForRobotTurn(true);
+        turnRadarRightRadians(Double.POSITIVE_INFINITY);
     }
-  }
 
-  public void onScannedRobot(ScannedRobotEvent e) {
-    setTurnRight(e.getBearing());
-    setFire(3);
-    setAhead(100);
-    gunDirection = -gunDirection;
-    setTurnGunRight(360 * gunDirection);
-    execute();
-  }
+
+    public void onScannedRobot(ScannedRobotEvent e) {
+        double absBearing=e.getBearingRadians()+getHeadingRadians();
+        double latVel=e.getVelocity() * Math.sin(e.getHeadingRadians() -absBearing);
+        double gunTurnAmt;
+        setTurnRadarLeftRadians(getRadarTurnRemainingRadians());
+        if(Math.random()>.9){
+            setMaxVelocity((12*Math.random())+12);
+        }
+        if (e.getDistance() > 150) {
+            gunTurnAmt = robocode.util.Utils.normalRelativeAngle(absBearing- getGunHeadingRadians()+latVel/22);//amount to turn our gun, lead just a little bit
+            setTurnGunRightRadians(gunTurnAmt); 
+            setTurnRightRadians(robocode.util.Utils.normalRelativeAngle(absBearing-getHeadingRadians()+latVel/getVelocity()));//drive towards the enemies predicted future location
+            setAhead((e.getDistance() - 140)*moveDirection);
+            setFire(3);
+        }
+        else{
+            gunTurnAmt = robocode.util.Utils.normalRelativeAngle(absBearing- getGunHeadingRadians()+latVel/15);
+            setTurnGunRightRadians(gunTurnAmt);
+            setTurnLeft(-90-e.getBearing()); 
+            setAhead((e.getDistance() - 140)*moveDirection);
+            setFire(3);
+        }
+    }
+    public void onHitWall(HitWallEvent e){
+        moveDirection=-moveDirection;
+    }
+
+    public void onWin(WinEvent e) {
+        for (int i = 0; i < 50; i++) {
+            turnRight(30);
+            turnLeft(30);
+        }
+    }
 }
