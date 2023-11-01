@@ -9,11 +9,11 @@ public class EPossivelCara extends AdvancedRobot {
 
     public void run() {
         setAdjustRadarForRobotTurn(true);
-        setBodyColor(Color.white);
-        setGunColor(Color.white);
-        setRadarColor(Color.white);
-        setScanColor(Color.white);
-        setBulletColor(Color.white);
+        setBodyColor(Color.orange);
+        setGunColor(Color.orange);
+        setRadarColor(Color.orange);
+        setScanColor(Color.orange);
+        setBulletColor(Color.orange);
         setAdjustGunForRobotTurn(true);
         turnRadarRightRadians(Double.POSITIVE_INFINITY);
     }
@@ -28,9 +28,9 @@ public class EPossivelCara extends AdvancedRobot {
             setMaxVelocity((12*Math.random())+12);
         }
         if (e.getDistance() > 150) {
-            gunTurnAmt = robocode.util.Utils.normalRelativeAngle(absBearing- getGunHeadingRadians()+latVel/22);//amount to turn our gun, lead just a little bit
+            gunTurnAmt = robocode.util.Utils.normalRelativeAngle(absBearing- getGunHeadingRadians()+latVel/22);
             setTurnGunRightRadians(gunTurnAmt); 
-            setTurnRightRadians(robocode.util.Utils.normalRelativeAngle(absBearing-getHeadingRadians()+latVel/getVelocity()));//drive towards the enemies predicted future location
+            setTurnRightRadians(robocode.util.Utils.normalRelativeAngle(absBearing-getHeadingRadians()+latVel/getVelocity()));
             setAhead((e.getDistance() - 140)*moveDirection);
             setFire(3);
         }
