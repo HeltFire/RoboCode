@@ -2,20 +2,17 @@ package Noitche;
 import robocode.*;
 import java.awt.Color;
 
-
 public class Noitche extends AdvancedRobot {
   int gunDirection = 1;
 
+
   public void run() {
-    setBodyColor(Color.pink);
-    setRadarColor(Color.pink);
-    setGunColor(Color.pink);
-    setBulletColor(Color.pink);
 
     while (true) {
       turnGunRight(360);
     }
   }
+
 
   public void onScannedRobot(ScannedRobotEvent e) {
     setTurnRight(e.getBearing());
@@ -23,6 +20,17 @@ public class Noitche extends AdvancedRobot {
     setAhead(100);
     gunDirection = -gunDirection;
     setTurnGunRight(360 * gunDirection);
+	
+	int vermelho = (int)(Math.random() * 255);
+  int azul = (int)(Math.random() * 255);
+	int verde = (int)(Math.random() * 255);
+	
+	setBodyColor(new Color(vermelho, verde, azul));
+	setGunColor(new Color(vermelho, verde, azul));
+	setRadarColor(new Color(vermelho, verde, azul));
+	setBulletColor(new Color(vermelho, verde, azul));
+	setScanColor(new Color(vermelho, verde, azul));
+	
     execute();
   }
 }
